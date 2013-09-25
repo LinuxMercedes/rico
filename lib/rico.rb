@@ -10,6 +10,7 @@ if $0 == __FILE__ then
 		rel.parse(contents)
 
 	else
+		puts "Please specify a filename"
 		exit
 	end
 
