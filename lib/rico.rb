@@ -14,8 +14,6 @@ if $0 == __FILE__ then
 		exit
 	end
 
-	rel.attributes.each do |attr|
-		puts attr
-	end
+	puts rel
 
 end
