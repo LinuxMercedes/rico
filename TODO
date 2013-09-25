@@ -1,5 +1,7 @@
 - Read arff file (rarff)
-- Calculate partitions
-- Determine if partitions are equivalent
-- Determinie if a partition is minimal
-- Induce rules from partitions
+- Support for partitions on numeric data? (everything looks integer so we can treat it as discrete)
+- Calculate partitions (hash of arrays?)
+- Determine if partitions are equivalent (O(awful))
+- Determinie if a partition is minimal (O(worse))
+- Induce rules from partitions ("easy")
+
