@@ -1,0 +1,5 @@
+- Read arff file (rarff)
+- Calculate partitions
+- Determine if partitions are equivalent
+- Determinie if a partition is minimal
+- Induce rules from partitions
