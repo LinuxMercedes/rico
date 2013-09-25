@@ -1,4 +1,5 @@
 require 'rarff'
+require './rico/rarff-patch.rb'
 
 if $0 == __FILE__ then
 	if ARGV[0]
@@ -12,6 +13,8 @@ if $0 == __FILE__ then
 		exit
 	end
 
-	puts rel
+	rel.attributes.each do |attr|
+		puts attr
+	end
 
 end
