@@ -8,7 +8,13 @@ def select_attributes(rel)
 	choosing = :decision
 
 	while not done
-		print "Select attributes:\n\n"
+		if choosing == :decision
+			puts 'Select decision attributes:'
+		else
+			puts 'Select attributes to partition on:'
+		end
+
+		puts
 
 		1.upto(attrs.length).zip(attrs,choices).each { |i, attr, choice|
 			if choice == :decision
@@ -21,14 +27,14 @@ def select_attributes(rel)
 		}
 
 		puts"\na) all attributes"
-		puts "c) clear all choices"
+		puts 'c) clear all choices'
 		if choosing == :decision
 			puts 'p) choose attributes to partition on'
 	  else
 			puts 'd) choose decision attributes'
 		end
-		puts "f) finished choosing attributes"
-		print "> "
+		puts 'f) finished choosing attributes'
+		print '> '
 
 		input = $stdin.gets
 		input.chomp!
@@ -57,10 +63,10 @@ def select_attributes(rel)
 						choices[idx] = choosing
 					end
 				else
-					puts "Not an attribute!"
+					puts 'Not an attribute!'
 				end
 			rescue ArgumentError
-				puts "Not an attribute!"
+				puts 'Not an attribute!'
 			end
 		end
 		puts 
