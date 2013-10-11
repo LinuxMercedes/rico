@@ -1,5 +1,6 @@
 + Read arff file (rarff)
 + Choose partition and decision attributes
+- Fix rico_patch.rb requiring
 - Specify min and max for partition sizes
 - Specify whether or not to prune unecessary conditions
 - Command line options? (getopt?)
