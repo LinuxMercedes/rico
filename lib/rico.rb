@@ -17,23 +17,27 @@ def select_attributes(rel)
 		puts
 
 		1.upto(attrs.length).zip(attrs,choices).each { |i, attr, choice|
-			if choice == :decision
+			case choice
+			when :decision
 				print '-'
-			elsif choice == :partition
+			when :partition
 				print '*'
+			else
+				print ' '
 			end
 
 			puts i.to_s + ') ' + attr.name
 		}
 
-		puts"\na) all attributes"
-		puts 'c) clear all choices'
+		puts "\n a) all attributes"
 		if choosing == :decision
-			puts 'p) choose attributes to partition on'
+			puts ' c) clear decision choices'
+			puts ' p) choose attributes to partition on'
 	  else
-			puts 'd) choose decision attributes'
+			puts ' c) clear partition choices'
+			puts ' d) choose decision attributes'
 		end
-		puts 'f) finished choosing attributes'
+		puts ' f) finished choosing attributes'
 		print '> '
 
 		input = $stdin.gets
@@ -88,7 +92,7 @@ if $0 == __FILE__ then
 		exit
 	end
 	
-	select_attributes(rel)
+	choices = select_attributes(rel)
 
 	# fucking magic
 	attr_partitions = 1.upto(3).flat_map{ |n| rel.attributes.combination(n).to_a }
