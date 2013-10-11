@@ -16,7 +16,7 @@ def select_attributes(rel)
 
 		puts
 
-		1.upto(attrs.length).zip(attrs,choices).each { |i, attr, choice|
+		(1..attrs.length).zip(attrs,choices).each { |i, attr, choice|
 			case choice
 			when :decision
 				print '-'
@@ -95,7 +95,7 @@ if $0 == __FILE__ then
 	choices = select_attributes(rel)
 
 	# fucking magic
-	attr_partitions = 1.upto(3).flat_map{ |n| rel.attributes.combination(n).to_a }
+	attr_partitions = (1..3).flat_map{ |n| rel.attributes.combination(n).to_a }
 
 #	attr_partitions.each { |attrs|
 #		attrs.each { |attr|
