@@ -43,8 +43,20 @@ def select_attributes(rel)
 		input = $stdin.gets
 		input.chomp!
 
-		# TODO: Deuglify
+		# Convert to a number if possible
+		begin
+			input = Integer(input)
+		rescue ArgumentError
+		end
+
 		case input
+		when 1..attrs.length
+			input -= 1
+			if choices[input] == choosing
+				choices[input] = :none
+			elsif choices[input] == :none
+				choices[input] = choosing
+			end
 		when 'a'
 			choices = choices.map { |choice| choice == :none ? choosing : choice }
 		when 'c'
@@ -56,23 +68,9 @@ def select_attributes(rel)
 		when 'f'
 			done = true
 		else
-			begin	
-				idx = Integer(input)
-				case idx
-				when 1..attrs.length
-					idx -= 1
-					if choices[idx] == choosing
-						choices[idx] = :none
-					elsif choices[idx] == :none
-						choices[idx] = choosing
-					end
-				else
-					puts 'Not an attribute!'
-				end
-			rescue ArgumentError
-				puts 'Not an attribute!'
-			end
+			puts 'Not an attribute!'
 		end
+
 		puts 
 	end
 
