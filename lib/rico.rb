@@ -4,22 +4,30 @@ require './rico/rarff-patch.rb'
 def select_attributes(rel)
 	attrs = rel.attributes
 	done = false
-	choices = Array.new(attrs.length, false)
+	choices = Array.new(attrs.length, :none)
+	choosing = :decision
 
 	while not done
-		print "Select attributes to partition on:\n\n"
+		print "Select attributes:\n\n"
 
 		1.upto(attrs.length).zip(attrs,choices).each { |i, attr, choice|
-			if choice 
-				print "*"
+			if choice == :decision
+				print '-'
+			elsif choice == :partition
+				print '*'
 			end
 
-			puts i.to_s + ") " + attr.name
+			puts i.to_s + ') ' + attr.name
 		}
 
 		puts"\na) all attributes"
 		puts "c) clear all choices"
-		puts "d) done choosing attributes"
+		if choosing == :decision
+			puts 'p) choose attributes to partition on'
+	  else
+			puts 'd) choose decision attributes'
+		end
+		puts "f) finished choosing attributes"
 		print "> "
 
 		input = $stdin.gets
@@ -28,10 +36,14 @@ def select_attributes(rel)
 		# TODO: Deuglify
 		case input
 		when 'a'
-			choices = Array.new(attrs.length, true)
+			choices = choices.map { |choice| choice == :none ? choosing : choice }
 		when 'c'
-			choices = Array.new(attrs.length, false)
+			choices = choices.map { |choice| choice == choosing ? :none : choice }
 		when 'd'
+			choosing = :decision
+		when 'p'
+			choosing = :partition
+		when 'f'
 			done = true
 		else
 			begin	
@@ -39,7 +51,11 @@ def select_attributes(rel)
 				case idx
 				when 1..attrs.length
 					idx -= 1
-					choices[idx] = !choices[idx]
+					if choices[idx] == choosing
+						choices[idx] = :none
+					elsif choices[idx] == :none
+						choices[idx] = choosing
+					end
 				else
 					puts "Not an attribute!"
 				end
@@ -71,12 +87,12 @@ if $0 == __FILE__ then
 	# fucking magic
 	attr_partitions = 1.upto(3).flat_map{ |n| rel.attributes.combination(n).to_a }
 
-	attr_partitions.each { |attrs|
-		attrs.each { |attr|
-			print attr, ", "
-		}
-		puts 
-	}
+#	attr_partitions.each { |attrs|
+#		attrs.each { |attr|
+#			print attr, ", "
+#		}
+#		puts 
+#	}
 
 end
 
