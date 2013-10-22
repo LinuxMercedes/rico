@@ -1,0 +1,16 @@
+Hash map
+<(attribute), (List<possible value>)>
+<(attribute name, attribute class), (List<Partition*>)>
+
+* - Partition: List<Instances>
+
+==============================
+
+getPartitions() << hot patch into rarff
+
+minimal()
+
+isLessThan(Partition p)
+
+getCovering(Partition p)
+
