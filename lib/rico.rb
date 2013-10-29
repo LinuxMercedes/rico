@@ -89,11 +89,14 @@ if $0 == __FILE__ then
 		puts "Please specify a filename"
 		exit
 	end
-	
-	choices = select_attributes(rel)
+
+    # test
+    puts rel
+
+#	choices = select_attributes(rel)
 
 	# fucking magic
-	attr_partitions = (1..3).flat_map{ |n| rel.attributes.combination(n).to_a }
+#	attr_partitions = (1..3).flat_map{ |n| rel.attributes.combination(n).to_a }
 
 #	attr_partitions.each { |attrs|
 #		attrs.each { |attr|
