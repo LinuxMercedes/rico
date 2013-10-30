@@ -14,3 +14,7 @@ isLessThan(Partition p)
 
 getCovering(Partition p)
 
+==============================
+
+add patch to Attribute class in Rarff -> id
+

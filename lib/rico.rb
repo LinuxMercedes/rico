@@ -1,4 +1,5 @@
 require 'rarff'
+require './partition.rb'
 require './rico/rarff-patch.rb'
 
 def select_attributes(rel)
@@ -92,6 +93,7 @@ if $0 == __FILE__ then
 
     # test
     puts rel
+    get_possible_values_hashmap(rel)
 
 #	choices = select_attributes(rel)
 
