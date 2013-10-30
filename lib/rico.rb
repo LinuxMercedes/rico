@@ -92,8 +92,13 @@ if $0 == __FILE__ then
 	end
 
     # test
-    puts rel
-    get_possible_values_hashmap(rel)
+    # puts rel
+    # testhash = get_partitions_hashmap(rel)
+    # testlist = testhash["g"]["L"]
+    # testlist.each { |instance|
+    #     puts instance
+    #     puts "#"*30
+    # }
 
 #	choices = select_attributes(rel)
 
