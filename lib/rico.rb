@@ -1,4 +1,5 @@
 require 'rarff'
+require './partition.rb'
 require './rico/rarff-patch.rb'
 
 def select_attributes(rel)
@@ -90,9 +91,19 @@ if $0 == __FILE__ then
 		exit
 	end
 
-	rel.instances.each { |i|
-		puts i
-	}	
+	# test
+	puts rel
+	puts ""
+	testcoverings = get_coverings(rel)
+	puts testcoverings
+	# testhash = get_partitions_hashmap(rel)
+	# puts testhash["a"]
+	# testlist = testhash["g"]["L"]
+	# testlist.each { |instance|
+	#     puts instance
+	#     puts "#"*30
+	# }
+
 #	choices = select_attributes(rel)
 
 	# fucking magic
