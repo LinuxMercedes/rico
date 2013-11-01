@@ -71,7 +71,7 @@ def select_attributes(rel)
 			puts 'Not an attribute!'
 		end
 
-		puts 
+		puts
 	end
 
 	return choices
@@ -89,17 +89,20 @@ if $0 == __FILE__ then
 		puts "Please specify a filename"
 		exit
 	end
-	
-	choices = select_attributes(rel)
+
+	rel.instances.each { |i|
+		puts i
+	}	
+#	choices = select_attributes(rel)
 
 	# fucking magic
-	attr_partitions = (1..3).flat_map{ |n| rel.attributes.combination(n).to_a }
+#	attr_partitions = (1..3).flat_map{ |n| rel.attributes.combination(n).to_a }
 
 #	attr_partitions.each { |attrs|
 #		attrs.each { |attr|
 #			print attr, ", "
 #		}
-#		puts 
+#		puts
 #	}
 
 end
