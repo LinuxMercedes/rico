@@ -1,6 +1,6 @@
 require 'rarff'
-require './partition.rb'
-require './rico/rarff-patch.rb'
+require_relative 'rico/partition.rb'
+require_relative 'rico/rarff-patch.rb'
 
 def select_attributes(rel)
 	attrs = rel.attributes

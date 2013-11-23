@@ -1,5 +1,5 @@
 require 'rarff'
-require './rico/rarff-patch.rb'
+require_relative 'rarff-patch.rb'
 
 def get_possible_values_hashmap(rel)
     
@@ -17,8 +17,7 @@ def get_possible_values_hashmap(rel)
         instances.each { |instance|
             values.push(instance[i])
         }
-        values = values.uniq
-        hashmap[attr.name] = values
+        hashmap[attr.name] = values.uniq
     }
     return hashmap
 end
