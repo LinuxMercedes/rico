@@ -94,7 +94,7 @@ if $0 == __FILE__ then
 	# test
 	puts rel
 	puts ""
-	puts get_possible_values(rel, [0, 1])
+	puts get_partitions(rel, [0, 1])
 #	testcoverings = get_coverings(rel)
 #	puts testcoverings
 #	choices = select_attributes(rel)
