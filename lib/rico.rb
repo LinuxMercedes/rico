@@ -94,16 +94,9 @@ if $0 == __FILE__ then
 	# test
 	puts rel
 	puts ""
-	testcoverings = get_coverings(rel)
-	puts testcoverings
-	# testhash = get_partitions_hashmap(rel)
-	# puts testhash["a"]
-	# testlist = testhash["g"]["L"]
-	# testlist.each { |instance|
-	#     puts instance
-	#     puts "#"*30
-	# }
-
+	puts get_possible_values(rel, [0, 1])
+#	testcoverings = get_coverings(rel)
+#	puts testcoverings
 #	choices = select_attributes(rel)
 
 	# fucking magic

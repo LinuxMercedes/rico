@@ -1,29 +1,29 @@
 require 'rarff'
 require_relative 'rarff-patch.rb'
 
-def get_possible_values_hashmap(rel)
+def get_possible_values(rel, indexes=nil)
     
     # initialize hashmap and attributes/instances arrays
     
-    attrs = rel.attributes
+		if indexes.nil?
+			indexes = (0...rel.attributes.length)
+		end
+
     instances = rel.instances
-    hashmap = Hash.new []
-    
+		values = Array.new
+   
     # iterate over all instances and populate values array
     # with each unique value for that attribute
-    
-    (0...attrs.length).zip(attrs).each { |i, attr|
-        values = Array.new(0);
-        instances.each { |instance|
-            values.push(instance[i])
-        }
-        hashmap[attr.name] = values.uniq
-    }
-    return hashmap
+
+		instances.each { |instance| 
+			values.push(instance.values_at(*indexes))
+		}
+
+    return values.uniq
 end
 
-def get_partitions_hashmap(rel)
-    
+def get_partitions_hashmap(rel, indexes=nil)
+   
     # initialize hashmap and attributes/instances/values
     # arrays
     
@@ -31,7 +31,12 @@ def get_partitions_hashmap(rel)
     instances = rel.instances
     values = get_possible_values_hashmap(rel)
     hashmap = Hash.new []
-    
+		
+		# If no indexes were chosen, assume to partition on every attribute
+		if indexes.nil?
+			indexes = (0...attrs.length)
+		end
+   
     # iterate over all attributes and get all possible
     # values for those attributes
     
