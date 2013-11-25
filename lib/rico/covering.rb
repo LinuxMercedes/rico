@@ -17,15 +17,11 @@ def find_covering(rel, decision, indexes, max_attrs=0)
 		end
 
 		attr_combos = (1..max_attrs).flat_map { |n| indexes.combination(n).to_a }
-		covering = nil	
 
 		attr_combos.each { |idxs|
 			  partition = get_partitions(rel, idxs)
-				if is_less_than(partition, dec_partition)
-						covering = idxs
-						break
-				end
+				return idxs if is_less_than(partition, dec_partition)
 		}
 	
-		return covering
+		return nil
 end
