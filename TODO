@@ -1,10 +1,10 @@
 + Read arff file (rarff)
 + Choose partition and decision attributes
-- Fix rico_patch.rb requiring
-- Specify min and max for partition sizes
++ Fix rico_patch.rb requiring
++ Specify min and max for partition sizes
++ Calculate partitions (hash of arrays?)
 - Specify whether or not to prune unecessary conditions
 - Command line options? (getopt?)
-- Calculate partitions (hash of arrays?)
 - Determine if partitions are equivalent (O(awful))
 - Determine if a partition is minimal (O(worse))
 - Induce rules from partitions ("easy")
