@@ -1,5 +1,6 @@
 require 'rarff'
 require_relative 'rico/partition.rb'
+require_relative 'rico/covering.rb'
 require_relative 'rico/rarff-patch.rb'
 
 def select_attributes(rel)
@@ -94,20 +95,17 @@ if $0 == __FILE__ then
 	# test
 	puts rel
 	puts ""
-	puts get_partitions(rel, [0, 1])
+#	p get_partitions(rel, [1, 2])
+#	p get_partitions(rel, [4])
+#	puts get_partitions(rel, [1,2]) == get_partitions(rel, [4])
 #	testcoverings = get_coverings(rel)
 #	puts testcoverings
 #	choices = select_attributes(rel)
 
-	# fucking magic
-#	attr_partitions = (1..3).flat_map{ |n| rel.attributes.combination(n).to_a }
-
-#	attr_partitions.each { |attrs|
-#		attrs.each { |attr|
-#			print attr, ", "
-#		}
-#		puts
-#	}
-
+	cov = find_covering(rel, [4], [0, 1, 2])
+	p cov
+	p get_partitions(rel, cov)
+	p get_partitions(rel, [4])
+	puts get_partitions(rel, cov) == get_partitions(rel, [4])
 end
 
