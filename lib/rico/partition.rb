@@ -30,7 +30,7 @@ def get_partitions(rel, indexes=nil)
     attrs = rel.attributes
     instances = rel.instances
     values = get_possible_values(rel, indexes)
-    partitions = Hash.new []
+    partitions = Array.new
 
 		# If no indexes were chosen, assume to partition on every attribute
 		if indexes.nil?
@@ -41,7 +41,7 @@ def get_partitions(rel, indexes=nil)
     # values for those attributes
 
 		values.each { |value|
-			partitions[value] = instances.select{ |x| x.values_at(*indexes) == value}
+			partitions.push(instances.select{ |x| x.values_at(*indexes) == value})
 		}
 
 		return partitions
