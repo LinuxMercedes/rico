@@ -23,5 +23,5 @@ def find_covering(rel, decision, indexes, max_attrs=0)
 				return idxs if is_less_than(partition, dec_partition)
 		}
 	
-		return nil
+		return []
 end
