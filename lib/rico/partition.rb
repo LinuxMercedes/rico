@@ -3,8 +3,7 @@ require_relative 'rarff-patch.rb'
 
 def get_possible_values(rel, indexes=nil)
 
-	# initialize hashmap and attributes/instances arrays
-
+	# Handle optional values
 	if indexes.nil?
 		indexes = (0...rel.attributes.length)
 	end
@@ -13,19 +12,16 @@ def get_possible_values(rel, indexes=nil)
 	values = Array.new
 
 	# iterate over all instances and populate values array
-	# with each unique value for that attribute
-
+	# with the instance values for the chosen attributes
 	instances.each { |instance|
 		values.push(instance.values_at(*indexes))
 	}
 
+	# uniquify the values list
 	return values.uniq
 end
 
 def get_partitions(rel, indexes=nil)
-
-	# initialize hashmap and attributes/instances/values
-	# arrays
 
 	attrs = rel.attributes
 	instances = rel.instances
@@ -37,9 +33,8 @@ def get_partitions(rel, indexes=nil)
 		indexes = (0...attrs.length)
 	end
 
-	# iterate over all attributes and get all possible
-	# values for those attributes
-
+	# iterate over all possible values and get 
+	# the instances that satisfy those values
 	values.each { |value|
 		partitions.push(instances.select{ |x| x.values_at(*indexes) == value})
 	}

@@ -44,10 +44,12 @@ you will be prompted to choose them interactively.
 			prune = true
 
 		when '--decision'
-			decision.push(*arg.split(',').map {|x| x})
+			# Allow comma-separated lists
+			decision.push(*arg.split(',').map {|x| x.strip})
 
 		when '--covering'
-			covering.push(*arg.split(',').map {|x| x})
+			# Allow comma-separated lists
+			covering.push(*arg.split(',').map {|x| x.strip})
 
 		when '--max_attrs'
 			max_attrs = arg.to_i
@@ -55,28 +57,31 @@ you will be prompted to choose them interactively.
 		end
 	}
 
+	# Get data filename and create relation
 	arff_file = ARGV.shift
 	if arff_file
 		contents = File.open(arff_file).read
 
 		rel = Rarff::Relation.new
 		rel.parse(contents)
-		puts rel
 	else
 		puts "Please specify a filename"
 		exit
 	end
 
+	# Convert attribute names to indexes
 	decision.map! { |d| rel.attributes.index{|a| a.name == d}}.compact!
 	covering.map! { |c| rel.attributes.index{|a| a.name == c}}.compact!
 
 	if decision == [] or covering == []
+		# Create a choices array reflecting the command-line-chosen attributes
 		choices = Array.new(rel.attributes.length, :none)
 		decision.each { |d| choices[d] = :decision }
 		covering.each { |c| choices[c] = :partition }
 
 		choices = select_attributes(rel, choices)
 
+		# Convert choices array back to indexes
 		decision = (0...choices.length).zip(choices).map{ |n, c| n if c == :decision}.compact
 		covering = (0...choices.length).zip(choices).map{ |n, c| n if c == :partition}.compact
 	end
@@ -100,6 +105,7 @@ def select_attributes(rel, choices)
 
 		puts
 
+		# Print attributes
 		(1..attrs.length).zip(attrs,choices).each { |i, attr, choice|
 			case choice
 			when :decision

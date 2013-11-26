@@ -6,7 +6,7 @@
 - [x] Specify whether or not to prune unecessary conditions
 - [x] Command line options? (getopt?)
 - [ ] Determine if partitions are equivalent (O(awful))
-- [ ] Determine if a partition is minimal (O(worse))
+- [ ] Determine if a partition is minimal (O(worse)) (possibly avoidable)
 - [ ] Induce rules from partitions ("easy")
 - [ ] Remove unecessary conditions from rules
 - [ ] DOCUMENT
