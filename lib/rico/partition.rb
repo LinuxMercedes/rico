@@ -3,109 +3,109 @@ require_relative 'rarff-patch.rb'
 
 def get_possible_values(rel, indexes=nil)
 
-    # initialize hashmap and attributes/instances arrays
+	# initialize hashmap and attributes/instances arrays
 
-		if indexes.nil?
-			indexes = (0...rel.attributes.length)
-		end
+	if indexes.nil?
+		indexes = (0...rel.attributes.length)
+	end
 
-    instances = rel.instances
-		values = Array.new
+	instances = rel.instances
+	values = Array.new
 
-    # iterate over all instances and populate values array
-    # with each unique value for that attribute
+	# iterate over all instances and populate values array
+	# with each unique value for that attribute
 
-		instances.each { |instance|
-			values.push(instance.values_at(*indexes))
-		}
+	instances.each { |instance|
+		values.push(instance.values_at(*indexes))
+	}
 
-    return values.uniq
+	return values.uniq
 end
 
 def get_partitions(rel, indexes=nil)
 
-    # initialize hashmap and attributes/instances/values
-    # arrays
+	# initialize hashmap and attributes/instances/values
+	# arrays
 
-    attrs = rel.attributes
-    instances = rel.instances
-    values = get_possible_values(rel, indexes)
-    partitions = Array.new
+	attrs = rel.attributes
+	instances = rel.instances
+	values = get_possible_values(rel, indexes)
+	partitions = Array.new
 
-		# If no indexes were chosen, assume to partition on every attribute
-		if indexes.nil?
-			indexes = (0...attrs.length)
-		end
+	# If no indexes were chosen, assume to partition on every attribute
+	if indexes.nil?
+		indexes = (0...attrs.length)
+	end
 
-    # iterate over all attributes and get all possible
-    # values for those attributes
+	# iterate over all attributes and get all possible
+	# values for those attributes
 
-		values.each { |value|
-			partitions.push(instances.select{ |x| x.values_at(*indexes) == value})
-		}
+	values.each { |value|
+		partitions.push(instances.select{ |x| x.values_at(*indexes) == value})
+	}
 
-		return partitions
+	return partitions
 end
 
 def get_coverings(rel)
 
-    # initialize attributes/instances arrays,
-    # partitions/coverings hashmaps
+	# initialize attributes/instances arrays,
+	# partitions/coverings hashmaps
 
-    attrs = rel.attributes
-    instances = rel.instances
-    attrvalues = get_possible_values_hashmap(rel)
-    partitions = get_partitions_hashmap(rel)
-    coverings = Hash.new []
+	attrs = rel.attributes
+	instances = rel.instances
+	attrvalues = get_possible_values_hashmap(rel)
+	partitions = get_partitions_hashmap(rel)
+	coverings = Hash.new []
 
-    # iterate over all attributes and get the partition
-    # for each attribute
+	# iterate over all attributes and get the partition
+	# for each attribute
 
-    attrs.each { |attr|
-        values = attrvalues[attr.name]
-        partition = partitions[attr.name]
-        blocks = Array.new(0)
-        found = Array.new(0)
+	attrs.each { |attr|
+		values = attrvalues[attr.name]
+		partition = partitions[attr.name]
+		blocks = Array.new(0)
+		found = Array.new(0)
 
-        # iterate over all possible values for attribute
-        # and assign instance numbers to blocks based on
-        # value for that attribute
+		# iterate over all possible values for attribute
+		# and assign instance numbers to blocks based on
+		# value for that attribute
 
-        values.each { |value|
-            instancelist = partition[value]
-            valueblock = Array.new(0)
+		values.each { |value|
+			instancelist = partition[value]
+			valueblock = Array.new(0)
 
-            # iterate over all instances that match the
-            # current value for this partition
+			# iterate over all instances that match the
+			# current value for this partition
 
-            instancelist.each { |item|
+			instancelist.each { |item|
 
-                # iterate over all instances in relation
-                # to match instance number to current
-                # instance in partition
+				# iterate over all instances in relation
+				# to match instance number to current
+				# instance in partition
 
-                (0...instances.length).zip(instances).each { |n, instance|
+				(0...instances.length).zip(instances).each { |n, instance|
 
-                    # if relation instance matches current
-                    # instance, add instance number to
-                    # current block, then restart
+					# if relation instance matches current
+					# instance, add instance number to
+					# current block, then restart
 
-                    if item == instance && !(found.include?(n))
-                        valueblock.push(n)
-                        found.push(n)
-                        break
-                    end
-                }
-            }
+					if item == instance && !(found.include?(n))
+						valueblock.push(n)
+						found.push(n)
+						break
+					end
+				}
+			}
 
-            # add current block to blocks array
-            blocks.push(valueblock)
-        }
+			# add current block to blocks array
+			blocks.push(valueblock)
+		}
 
-        # add current attribute's blocks array to coverings
-        # hashmap
+		# add current attribute's blocks array to coverings
+		# hashmap
 
-        coverings[attr.name] = blocks
-    }
-    return coverings
+		coverings[attr.name] = blocks
+	}
+	return coverings
 end

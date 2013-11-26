@@ -1,7 +1,5 @@
 require 'getoptlong'
 
-
-
 def getopts()
 	opts = GetoptLong.new(
 		['--help', '-h', GetoptLong::NO_ARGUMENT],
