@@ -69,7 +69,6 @@ you will be prompted to choose them interactively.
 		exit
 	end
 
-	p rel.attributes[0]
 	decision.map! { |d| rel.attributes.index{|a| a.name == d}}.compact!
 	covering.map! { |c| rel.attributes.index{|a| a.name == c}}.compact!
 
