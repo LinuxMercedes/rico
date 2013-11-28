@@ -17,6 +17,7 @@ if $0 == __FILE__ then
 	p get_partitions(rel, decision_attrs)
 	puts get_partitions(rel, cov) == get_partitions(rel, decision_attrs)
 
-	generate_rules(rel, cov, decision_attrs)
+	rules = generate_rules(rel, cov, decision_attrs)
+	print_rules(rules)
 end
 
