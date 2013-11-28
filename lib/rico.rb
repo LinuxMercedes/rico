@@ -1,8 +1,7 @@
-require 'rarff'
 require_relative 'rico/partition.rb'
 require_relative 'rico/covering.rb'
 require_relative 'rico/opts.rb'
-require_relative 'rico/rarff-patch.rb'
+require_relative 'rico/rules.rb'
 
 if $0 == __FILE__ then
 
@@ -17,5 +16,7 @@ if $0 == __FILE__ then
 	p get_partitions(rel, cov)
 	p get_partitions(rel, decision_attrs)
 	puts get_partitions(rel, cov) == get_partitions(rel, decision_attrs)
+
+	generate_rules(rel, cov, decision_attrs)
 end
 
