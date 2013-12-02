@@ -1,6 +1,16 @@
 require 'rarff'
 require_relative 'rarff-patch.rb'
 
+# Given a set of [antecedent_attr, value] pairings, 
+# return the possible values for the consequents
+def get_consequents_values(rel, antecedents, consequents)
+	return rel.instances.map { |instance|
+		instance.values_at(*consequents) if antecedents.reduce(true) { |match, (idx, val)|
+			match &= instance[idx] == val
+		}
+	}.compact.uniq
+end
+
 def get_possible_values(rel, indexes=nil)
 
 	# Handle optional values

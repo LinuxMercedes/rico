@@ -8,6 +8,6 @@
 - [ ] Determine if partitions are equivalent (O(awful))
 - [ ] Determine if a partition is minimal (O(worse)) (possibly avoidable)
 - [x] Induce rules from partitions ("easy")
-- [ ] Remove unecessary conditions from rules
+- [x] Remove unecessary conditions from rules
 - [ ] DOCUMENT
 - ~~[ ] Support for partitions on numeric data? (everything looks integer so we can treat it as discrete)~~
