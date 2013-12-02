@@ -49,8 +49,7 @@ def _prune_antecedents(rel, cov, decision_attrs, vals)
 
 	# Check each possible combination of the covering attributes
 	(1..cov.length).flat_map { |n| cov.zip(vals[0, cov.length]).combination(n).to_a }.each { |min_cov|
-		min_consequents_vals = get_consequents_values(rel, min_cov, decision_attrs)
-		return min_cov if min_consequents_vals == consequents_vals
+		return min_cov if consequents_vals == get_consequents_values(rel, min_cov, decision_attrs)
 	}
 end
 
