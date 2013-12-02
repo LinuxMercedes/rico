@@ -33,7 +33,7 @@ def get_partitions(rel, indexes=nil)
 		indexes = (0...attrs.length)
 	end
 
-	# iterate over all possible values and get 
+	# iterate over all possible values and get
 	# the instances that satisfy those values
 	values.each { |value|
 		partitions.push(instances.select{ |x| x.values_at(*indexes) == value})
