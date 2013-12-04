@@ -1,3 +1,6 @@
+require 'rubygems'
+require 'extensions/all'
+
 require_relative 'rico/partition.rb'
 require_relative 'rico/covering.rb'
 require_relative 'rico/opts.rb'

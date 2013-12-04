@@ -48,7 +48,7 @@ def _prune_antecedents(rel, cov, decision_attrs, vals)
 	consequents_vals = [vals[cov.length, cov.length + decision_attrs.length]]
 
 	# Check each possible combination of the covering attributes
-	(1..cov.length).flat_map { |n| cov.zip(vals[0, cov.length]).combination(n).to_a }.each { |min_cov|
+	(1..cov.length).map { |n| cov.zip(vals[0, cov.length]).combination(n).to_a }.flatten(1).each { |min_cov|
 		return min_cov if consequents_vals == get_consequents_values(rel, min_cov, decision_attrs)
 	}
 end

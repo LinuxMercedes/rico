@@ -5,7 +5,7 @@ require_relative 'rarff-patch.rb'
 # return the possible values for the consequents
 def get_consequents_values(rel, antecedents, consequents)
 	return rel.instances.map { |instance|
-		instance.values_at(*consequents) if antecedents.reduce(true) { |match, (idx, val)|
+		instance.values_at(*consequents) if antecedents.inject(true) { |match, (idx, val)|
 			match &= instance[idx] == val
 		}
 	}.compact.uniq

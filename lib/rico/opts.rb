@@ -6,7 +6,7 @@ def getopts()
 		['--prune', '-p', GetoptLong::NO_ARGUMENT],
 		['--decision', '-d', GetoptLong::REQUIRED_ARGUMENT],
 		['--covering', '-c', GetoptLong::REQUIRED_ARGUMENT],
-		['--max-attrs', '-m', GetoptLong::REQUIRED_ARGUMENT],
+		['--max-attrs', '-m', GetoptLong::REQUIRED_ARGUMENT]
 	)
 
 	prune = false

@@ -14,12 +14,12 @@ def find_covering(rel, decision, indexes, max_attrs=0)
 	dec_partition = get_partitions(rel, decision)
 
 	if max_attrs == 0
-		max_attrs = rel.attributes.length
+		max_attrs = indexes.length
 	end
 
 	# Generate all possible attribute combinations,
 	# starting with combos of size 1
-	attr_combos = (1..max_attrs).flat_map { |n| indexes.combination(n).to_a }
+	attr_combos = (1..max_attrs).map { |n| indexes.combination(n).to_a }.flatten(1)
 
 	# Determine if the chosen partition is a valid covering
 	# Due to the ordering of combinations, the first combination
