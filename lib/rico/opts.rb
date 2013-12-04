@@ -6,7 +6,7 @@ def getopts()
 		['--prune', '-p', GetoptLong::NO_ARGUMENT],
 		['--decision', '-d', GetoptLong::REQUIRED_ARGUMENT],
 		['--covering', '-c', GetoptLong::REQUIRED_ARGUMENT],
-		['--max-attrs', '-m', GetoptLong::REQUIRED_ARGUMENT],
+		['--max-attrs', '-m', GetoptLong::REQUIRED_ARGUMENT]
 	)
 
 	prune = false
@@ -86,7 +86,7 @@ you will be prompted to choose them interactively.
 		covering = (0...choices.length).zip(choices).map{ |n, c| n if c == :partition}.compact
 	end
 
-	return rel, decision, covering
+	return rel, decision, covering, max_attrs, prune
 
 end
 
