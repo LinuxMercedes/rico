@@ -5,8 +5,8 @@
 - [x] Calculate partitions (hash of arrays?)
 - [x] Specify whether or not to prune unecessary conditions
 - [x] Command line options? (getopt?)
-- [ ] Determine if partitions are equivalent (O(awful))
-- [ ] Determine if a partition is minimal (O(worse)) (possibly avoidable)
+- ~~[ ] Determine if partitions are equivalent (O(awful))~~
+- [ ] Determine if a partition is minimal (O(worse))
 - [x] Induce rules from partitions ("easy")
 - [x] Remove unecessary conditions from rules
 - [ ] Prompt for unspecified parameters
