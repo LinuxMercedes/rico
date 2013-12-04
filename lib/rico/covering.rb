@@ -27,12 +27,18 @@ def is_less_than(p1, p2)
     return true
 end
 
+# Determine if a partition is already in coverings
+# or if a covering is a subset of the partition
 def is_in(part, coverings)
 	return coverings.any? { |covering| 
 		covering.length <= part.length and part[0,covering.length] == covering
 	}
 end
 
+# Calculate all possible coverings of the specified decision attributes
+# by the attributes (specified by indexes), optionally limiting the max
+# attributes in a covering to max_attrs.
+# Returns a list of coverings, each of which is a list of indexes of attributes.
 def find_covering(rel, decision, indexes, max_attrs=0)
 	# Get partition for decision attribute
 	dec_partition = get_partitions(rel, decision)
