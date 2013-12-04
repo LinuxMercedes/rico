@@ -19,6 +19,7 @@
 - [ ] Print coverage of each rule
 - [ ] Consolidate rules after removing redundant conditions
 - [ ] Test with large matrix and additional datasets
+- [ ] Sort rule conditions by order of appearance?
 - [ ] DOCUMENT
 - [ ] Go have a beer
 - ~~[ ] Support for partitions on numeric data? (everything looks integer so we can treat it as discrete)~~
