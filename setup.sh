@@ -1,3 +1,4 @@
 #! /bin/bash
 
-gem install --user-install extensions
+gem install --user-install backports
+

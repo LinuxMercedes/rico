@@ -1,5 +1,5 @@
 require 'rubygems'
-require 'extensions/kernel'
+require 'backports/1.9.1/kernel/require_relative'
 
 require_relative 'rico/partition.rb'
 require_relative 'rico/covering.rb'
