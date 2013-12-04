@@ -1,12 +1,13 @@
 require_relative 'partition.rb'
 
+# TODO: Maybe implement?
 def minimal()
 
 end
 
 # TODO: Actually implement
 def is_less_than(c1, c2)
-	return c1 == c2
+	
 end
 
 def find_covering(rel, decision, indexes, max_attrs=0)
