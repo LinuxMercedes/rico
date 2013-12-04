@@ -31,7 +31,7 @@ end
 # or if a covering is a subset of the partition
 def is_in(part, coverings)
 	return coverings.any? { |covering| 
-		covering.length <= part.length and part[0,covering.length] == covering
+		covering.all? { |c| part.include?(c) }
 	}
 end
 
