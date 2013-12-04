@@ -9,5 +9,16 @@
 - [ ] Determine if a partition is minimal (O(worse)) (possibly avoidable)
 - [x] Induce rules from partitions ("easy")
 - [x] Remove unecessary conditions from rules
+- [ ] Prompt for unspecified parameters
+- [ ] Prompt for unspecified filename
+- [ ] Provide minimum coverage restrictions on rule reporting
+- [ ] Print values of input parameters
+- [ ] Print distribution of values for decision attributes
+- [ ] Calculate all coverings, not just one
+- [ ] Print rules in a compact fashion
+- [ ] Print coverage of each rule
+- [ ] Consolidate rules after removing redundant conditions
+- [ ] Test with large matrix and additional datasets
 - [ ] DOCUMENT
+- [ ] Go have a beer
 - ~~[ ] Support for partitions on numeric data? (everything looks integer so we can treat it as discrete)~~
