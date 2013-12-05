@@ -3,7 +3,7 @@ require_relative 'partition.rb'
 # Generate rules from a list of attributes that form a covering
 # and the decision attributes, optionally pruning unnecessary
 # conditions from the rules.
-def generate_rules(rel, cov, decision_attrs, prune = false)
+def generate_rules(rel, cov, decision_attrs, prune = false, min_coverage = 0)
 	# Get names for the decision attributes
 	dec_names = rel.attributes.values_at(*decision_attrs).map { |attr| attr.name }
 
@@ -36,7 +36,7 @@ def generate_rules(rel, cov, decision_attrs, prune = false)
 		rules[{:antecedents => antecedents, :consequents => consequents}] += coverage
 	}
 
-	return rules
+	return rules.keep_if { |r, cov| cov >= min_coverage }
 end
 
 # Prune unnecessary antecedents by looking at the
