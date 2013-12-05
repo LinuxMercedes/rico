@@ -9,9 +9,9 @@
 - [x] Determine if a partition is minimal (O(worse))
 - [x] Induce rules from partitions ("easy")
 - [x] Remove unecessary conditions from rules
-- [ ] Prompt for unspecified parameters
-- [ ] Prompt for unspecified filename
-- [ ] Provide minimum coverage restrictions on rule reporting
+- [x] Prompt for unspecified parameters
+- [x] Prompt for unspecified filename
+- [x] Provide minimum coverage restrictions on rule reporting
 - [ ] Print values of input parameters
 - [ ] Print distribution of values for decision attributes
 - [x] Calculate all coverings, not just one

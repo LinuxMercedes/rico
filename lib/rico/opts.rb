@@ -3,16 +3,16 @@ require 'getoptlong'
 def getopts()
 	opts = GetoptLong.new(
 		['--help', '-h', GetoptLong::NO_ARGUMENT],
-		['--prune', '-p', GetoptLong::NO_ARGUMENT],
+		['--prune', '-p', GetoptLong::OPTIONAL_ARGUMENT],
 		['--decision', '-d', GetoptLong::REQUIRED_ARGUMENT],
 		['--covering', '-c', GetoptLong::REQUIRED_ARGUMENT],
 		['--max-attrs', '-a', GetoptLong::REQUIRED_ARGUMENT],
 		['--min-rule-coverage', '-r', GetoptLong::REQUIRED_ARGUMENT]
 	)
 
-	prune = false
-	max_attrs = 0
-	min_coverage = 0
+	prune = nil
+	max_attrs = nil
+	min_coverage = nil
 	decision = []
 	covering = []
 
@@ -43,7 +43,12 @@ you will be prompted to choose them interactively.
 		exit
 
 		when '--prune'
-			prune = true
+			p arg.downcase
+			if arg.downcase.chomp == "n"
+				prune = false
+			else
+				prune = true
+			end
 
 		when '--decision'
 			# Allow comma-separated lists
@@ -53,7 +58,7 @@ you will be prompted to choose them interactively.
 			# Allow comma-separated lists
 			covering.push(*arg.split(',').map {|x| x.strip})
 
-		when '--max_attrs'
+		when '--max-attrs'
 			max_attrs = arg.to_i
 
 		when '--min-rule-coverage'
@@ -64,15 +69,16 @@ you will be prompted to choose them interactively.
 
 	# Get data filename and create relation
 	arff_file = ARGV.shift
-	if arff_file
-		contents = File.open(arff_file).read
-
-		rel = Rarff::Relation.new
-		rel.parse(contents)
-	else
-		puts "Please specify a filename"
-		exit
+	if not arff_file
+		puts "Please specify a filename:"
+		arff_file = $stdin.gets
+		arff_file.chomp!
 	end
+
+	contents = File.open(arff_file).read
+
+	rel = Rarff::Relation.new
+	rel.parse(contents)
 
 	# Convert attribute names to indexes
 	decision.map! { |d| rel.attributes.index{|a| a.name == d}}.compact!
@@ -91,8 +97,23 @@ you will be prompted to choose them interactively.
 		covering = (0...choices.length).zip(choices).map{ |n, c| n if c == :partition}.compact
 	end
 
-	return rel, decision, covering, max_attrs, min_coverage, prune
+	if max_attrs.nil?
+		puts "Maximum attributes to consider in a covering (0 = unlimited): "
+		max_attrs = $stdin.gets.chomp!.to_i
+	end
 
+	if min_coverage.nil?
+		puts "Minimum instance coverage for reported rules (0 = unlimited): "
+		min_coverage = $stdin.gets.chomp!.to_i
+	end
+
+	if prune.nil?
+		puts "Prune redundant conditions from rules? (Y/n): "
+		prune = $stdin.gets.chomp!
+		prune = prune.downcase != 'n'
+	end
+
+	return rel, decision, covering, max_attrs, min_coverage, prune
 end
 
 def select_attributes(rel, choices)
