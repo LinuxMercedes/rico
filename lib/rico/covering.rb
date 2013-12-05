@@ -48,7 +48,7 @@ def find_covering(rel, decision, indexes, max_attrs = 0)
 
 	# Generate all possible attribute combinations,
 	# starting with combos of size 1
-	attr_combos = (1..max_attrs).map { |n| indexes.combination(n).to_a }.flatten(1)
+	attr_combos = (1..max_attrs).flat_map { |n| indexes.combination(n).to_a }
 
 	# Generate a list of valid partitions
 	coverings = Array.new
