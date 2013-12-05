@@ -28,9 +28,12 @@ def generate_rules(rel, cov, decision_attrs, prune = false, min_coverage = 0)
 			min_cov = cov.zip(vals[0, cov.length])
 		end
 
-		antecedents = Hash.new
-		min_cov.each { |n, val|
-			antecedents[rel.attributes[n].name] = val
+		antecedents = min_cov.map { |n, val|
+			if n.nil?
+				['_','_']
+			else
+				[rel.attributes[n].name, val]
+			end
 		}
 
 		rules[{:antecedents => antecedents, :consequents => consequents}] += coverage
@@ -49,7 +52,16 @@ def _prune_antecedents(rel, cov, decision_attrs, vals)
 
 	# Check each possible combination of the covering attributes
 	(1..cov.length).map { |n| cov.zip(vals[0, cov.length]).combination(n).to_a }.flatten(1).each { |min_cov|
-		return min_cov if consequents_vals == get_consequents_values(rel, min_cov, decision_attrs)
+		if consequents_vals == get_consequents_values(rel, min_cov, decision_attrs)
+			return cov.zip(min_cov).each_with_object([[], []]) { |(c, m), (fcov, last)|
+				last << m
+				if not last.first.nil? and last.first.first == c
+					fcov << last.shift
+				else
+					fcov << nil
+				end
+			}.first
+		end
 	}
 end
 
@@ -68,17 +80,17 @@ end
 # Print generated rules, compactly.
 def print_compact_rules(rules)
     rules_array = Array.new
-    
+   
     # Iterate over all rules in the specified rules set
     rules.each { |rule, coverage|
         rule_tuple = Array.new
         
         # Get the values of antecedents/consequents for current rule
         rule_values = Array.new
-        rule[:antecedents].values.each { |value|
+        rule[:antecedents].each { |name, value|
             rule_values.push(value)
         }
-        rule[:consequents].values.each { |value|
+        rule[:consequents].each { |name, value|
             rule_values.push(value)
         }
         
