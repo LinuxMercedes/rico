@@ -11,7 +11,7 @@ def generate_rules(rel, cov, decision_attrs, prune = false)
 
 	# Build a list of antecedents and consequents for each
 	# possible combination of values
-	get_possible_values(rel, cov + decision_attrs).each { |vals|
+	get_value_distribution(rel, cov + decision_attrs).each { |vals, coverage|
 		# Build consequents hash
 		consequents = Hash.new
 		(cov.length...decision_attrs.length + cov.length).zip(dec_names).each { |n, name|
@@ -33,7 +33,7 @@ def generate_rules(rel, cov, decision_attrs, prune = false)
 			antecedents[rel.attributes[n].name] = val
 		}
 
-		rules.push({:antecedents => antecedents, :consequents => consequents})
+		rules.push({:antecedents => antecedents, :consequents => consequents, :coverage => coverage})
 	}
 
 	return rules
@@ -84,7 +84,10 @@ def print_rules(rules)
 			print ', '
 		}
 
-		puts "\b\b."
+		print "\b\b. ("
+
+		print rule[:coverage]
+		puts ')'
 	}
 end
 
