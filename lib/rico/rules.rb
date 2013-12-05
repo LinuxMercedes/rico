@@ -65,11 +65,41 @@ def get_value_distribution(rel, indexes)
     return value_dist
 end
 
+# Print generated rules, compactly.
+def print_compact_rules(rules)
+    rules_array = Array.new
+    
+    # Iterate over all rules in the specified rules set
+    rules.each { |rule, coverage|
+        rule_tuple = Array.new
+        
+        # Get the values of antecedents/consequents for current rule
+        rule_values = Array.new
+        rule[:antecedents].values.each { |value|
+            rule_values.push(value)
+        }
+        rule[:consequents].values.each { |value|
+            rule_values.push(value)
+        }
+        
+        # Combine values of antecedents/consequents with coverage
+        # for current rule
+        rule_tuple.push(rule_values)
+        rule_tuple.push(coverage)
+        
+        # Add current rule tuple to rules array
+        rules_array.push(rule_tuple)
+    }
+    
+    # Print compact rules
+    p rules_array
+end
+
 # Print generated rules, prettily.
 def print_rules(rules)
 	rules.each { |rule, coverage|
 		print 'If '
-		rule[:antecedents].each{ |name, value|
+		rule[:antecedents].each { |name, value|
 			print name
 			print ' = '
 			print value
@@ -77,7 +107,7 @@ def print_rules(rules)
 		}
 
 		print 'then '
-		rule[:consequents].each{ |name, value|
+		rule[:consequents].each { |name, value|
 			print name
 			print ' = '
 			print value
