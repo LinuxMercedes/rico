@@ -15,7 +15,7 @@ end
 # relation for the specified attribute indexes (returns
 # possible values for all attribute indexes by default,
 # i.e. - when indexes = nil)
-def get_possible_values(rel, indexes=nil)
+def get_possible_values(rel, indexes = nil)
 
 	# Handle optional values
 	if indexes.nil?
@@ -38,7 +38,7 @@ end
 # Returns a partition on the specified relation for the
 # specified attribute indexes (returns partition on all
 # attribute indexes by default, i.e. - when indexes = nil)
-def get_partition(rel, indexes=nil)
+def get_partition(rel, indexes = nil)
 
 	attrs = rel.attributes
 	instances = rel.instances

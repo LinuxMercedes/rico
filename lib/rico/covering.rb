@@ -35,7 +35,7 @@ end
 # by the attributes (specified by indexes), optionally limiting the max
 # attributes in a covering to max_attrs.
 # Returns a list of coverings, each of which is a list of indexes of attributes.
-def find_covering(rel, decision, indexes, max_attrs=0)
+def find_covering(rel, decision, indexes, max_attrs = 0)
 	# Get partition for decision attribute
 	dec_partition = get_partition(rel, decision)
 
