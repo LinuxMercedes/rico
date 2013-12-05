@@ -5,8 +5,8 @@
 - [x] Calculate partitions (hash of arrays?)
 - [x] Specify whether or not to prune unecessary conditions
 - [x] Command line options? (getopt?)
-- ~~[ ] Determine if partitions are equivalent (O(awful))~~
-- [ ] Determine if a partition is minimal (O(worse))
+- [x] Determine if partitions are equivalent (O(awful))
+- [x] Determine if a partition is minimal (O(worse))
 - [x] Induce rules from partitions ("easy")
 - [x] Remove unecessary conditions from rules
 - [ ] Prompt for unspecified parameters
@@ -14,7 +14,7 @@
 - [ ] Provide minimum coverage restrictions on rule reporting
 - [ ] Print values of input parameters
 - [ ] Print distribution of values for decision attributes
-- [ ] Calculate all coverings, not just one
+- [x] Calculate all coverings, not just one
 - [ ] Print rules in a compact fashion
 - [ ] Print coverage of each rule
 - [ ] Consolidate rules after removing redundant conditions

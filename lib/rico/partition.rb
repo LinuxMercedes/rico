@@ -11,6 +11,10 @@ def get_consequents_values(rel, antecedents, consequents)
 	}.compact.uniq
 end
 
+# Returns a list of possible values within the specified
+# relation for the specified attribute indexes (returns
+# possible values for all attribute indexes by default,
+# i.e. - when indexes = nil)
 def get_possible_values(rel, indexes=nil)
 
 	# Handle optional values
@@ -31,12 +35,15 @@ def get_possible_values(rel, indexes=nil)
 	return values.uniq
 end
 
-def get_partitions(rel, indexes=nil)
+# Returns a partition on the specified relation for the
+# specified attribute indexes (returns partition on all
+# attribute indexes by default, i.e. - when indexes = nil)
+def get_partition(rel, indexes=nil)
 
 	attrs = rel.attributes
 	instances = rel.instances
 	values = get_possible_values(rel, indexes)
-	partitions = Array.new
+	partition = Array.new
 
 	# If no indexes were chosen, assume to partition on every attribute
 	if indexes.nil?
@@ -46,71 +53,8 @@ def get_partitions(rel, indexes=nil)
 	# iterate over all possible values and get
 	# the instances that satisfy those values
 	values.each { |value|
-		partitions.push(instances.select{ |x| x.values_at(*indexes) == value})
+		partition.push(instances.select{ |x| x.values_at(*indexes) == value})
 	}
 
-	return partitions
-end
-
-def get_coverings(rel)
-
-	# initialize attributes/instances arrays,
-	# partitions/coverings hashmaps
-
-	attrs = rel.attributes
-	instances = rel.instances
-	attrvalues = get_possible_values_hashmap(rel)
-	partitions = get_partitions_hashmap(rel)
-	coverings = Hash.new []
-
-	# iterate over all attributes and get the partition
-	# for each attribute
-
-	attrs.each { |attr|
-		values = attrvalues[attr.name]
-		partition = partitions[attr.name]
-		blocks = Array.new(0)
-		found = Array.new(0)
-
-		# iterate over all possible values for attribute
-		# and assign instance numbers to blocks based on
-		# value for that attribute
-
-		values.each { |value|
-			instancelist = partition[value]
-			valueblock = Array.new(0)
-
-			# iterate over all instances that match the
-			# current value for this partition
-
-			instancelist.each { |item|
-
-				# iterate over all instances in relation
-				# to match instance number to current
-				# instance in partition
-
-				(0...instances.length).zip(instances).each { |n, instance|
-
-					# if relation instance matches current
-					# instance, add instance number to
-					# current block, then restart
-
-					if item == instance && !(found.include?(n))
-						valueblock.push(n)
-						found.push(n)
-						break
-					end
-				}
-			}
-
-			# add current block to blocks array
-			blocks.push(valueblock)
-		}
-
-		# add current attribute's blocks array to coverings
-		# hashmap
-
-		coverings[attr.name] = blocks
-	}
-	return coverings
+	return partition
 end

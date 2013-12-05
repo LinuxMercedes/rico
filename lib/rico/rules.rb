@@ -53,6 +53,18 @@ def _prune_antecedents(rel, cov, decision_attrs, vals)
 	}
 end
 
+# Returns a hash map using the following format:
+# <key = attribute value(s), value = # of occurences in relation>
+# using the specified relation and attribute indexes
+def get_value_distribution(rel, indexes)
+    value_dist = Hash.new(0)
+    instances = rel.instances
+    instances.each { |instance|
+        value_dist[instance.values_at(*indexes)] += 1
+    }
+    return value_dist
+end
+
 # Print generated rules, prettily.
 def print_rules(rules)
 	rules.each { |rule|
