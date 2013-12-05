@@ -15,11 +15,12 @@
 - [ ] Print values of input parameters
 - [ ] Print distribution of values for decision attributes
 - [x] Calculate all coverings, not just one
-- [ ] Print rules in a compact fashion
+- [x] Print rules in a compact fashion
 - [x] Print coverage of each rule
 - [x] Consolidate rules after removing redundant conditions
 - [ ] Test with large matrix and additional datasets
 - [ ] Sort rule conditions by order of appearance?
+- [ ] Test on school boxes (ruby 1.8)
 - [ ] DOCUMENT
 - [ ] Go have a beer
 - ~~[ ] Support for partitions on numeric data? (everything looks integer so we can treat it as discrete)~~
