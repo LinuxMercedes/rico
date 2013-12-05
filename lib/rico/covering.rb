@@ -1,11 +1,7 @@
 require_relative 'partition.rb'
 
-# TODO: Maybe implement?
-def minimal()
-    
-end
-
-# TODO: Actually implement
+# Returns true if p1 is less than or equivalent to p2;
+# false otherwise
 def is_less_than(p1, p2)
     # If partitions are equivalent, return true
 	return true if p1 == p2
@@ -13,11 +9,11 @@ def is_less_than(p1, p2)
     # Check each element of p1 to see if it is less than p2
     p1.each { |s1|
         p2.each { |s2|
-            # continue if s2 contains no attributes from s1,
+            # Continue if s2 contains no attributes from s1,
             # or if s2 is equivalent to s1
             next if s2 & s1 == [] || s2 == s1
             
-            # if s2 does not contain all attributes from s1,
+            # If s2 does not contain all attributes from s1,
             # then p1 is not less than p2
             return false if s1 - s2 != []
         }
@@ -35,7 +31,7 @@ end
 
 def find_covering(rel, decision, indexes, max_attrs=0)
 	# Get partition for decision attribute
-	dec_partition = get_partitions(rel, decision)
+	dec_partition = get_partition(rel, decision)
 
 	if max_attrs == 0
 		max_attrs = indexes.length
@@ -48,7 +44,7 @@ def find_covering(rel, decision, indexes, max_attrs=0)
 	# Generate a list of valid partitions
 	coverings = Array.new
 	attr_combos.each { |idxs|
-		partition = get_partitions(rel, idxs)
+		partition = get_partition(rel, idxs)
 		coverings << idxs if is_less_than(partition, dec_partition) and not is_in(idxs, coverings)
 	}
 
