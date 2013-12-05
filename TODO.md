@@ -12,7 +12,7 @@
 - [x] Prompt for unspecified parameters
 - [x] Prompt for unspecified filename
 - [x] Provide minimum coverage restrictions on rule reporting
-- [ ] Print values of input parameters
+- [x] Print values of input parameters
 - [x] Print distribution of values for decision attributes
 - [x] Calculate all coverings, not just one
 - [x] Print rules in a compact fashion

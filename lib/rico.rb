@@ -12,18 +12,26 @@ if $0 == __FILE__ then
 
 	rel, decision_attrs, covering_attrs, max_attrs, min_coverage, prune = getopts()
 
-	# test
+	#TODO: remove?
 	puts rel
 	puts ""
-    
+
+	puts "Maximum attributes in a covering: " + max_attrs.to_s if max_attrs > 0
+	puts "Minimum coverage of reported rules: " + min_coverage.to_s if min_coverage > 0
+	puts "Pruning unnecessary conditions." if prune
+	puts ''
+
+	print "Attributes to partition on: " 
+	p covering_attrs.map { |c| rel.attributes[c].name }
+	puts ''
+
+	print_decision_attr_info(rel, decision_attrs)
+
 	coverings = find_covering(rel, decision_attrs, covering_attrs, max_attrs)
-	puts "Decision attribute(s) partition:"
-   
-	p get_partition(rel, decision_attrs)
 
 	puts "\nCoverings:"
 	coverings.each { |cov|
-		p cov
+		p cov.map { |c| rel.attributes[c].name }
 		rules = generate_rules(rel, cov, decision_attrs, prune, min_coverage)
 		print_compact_rules(rules)
 		puts ""

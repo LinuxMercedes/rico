@@ -70,7 +70,6 @@ end
 # <key = attribute value(s), value = # of occurences in relation>
 # using the specified relation and attribute indexes
 def get_value_distribution(rel, indexes)
-    
     value_dist = Hash.new(0)
     instances = rel.instances
     instances.each { |instance|
@@ -84,18 +83,20 @@ end
 def print_decision_attr_info(rel, indexes)
     
     # Print specified decision attributes
-    dec_attrs = rel.attributes.values_at(*indexes)
-    print 'Decision attributes: '
-    p dec_attrs
+		(1..indexes.length).flat_map { |n| indexes.combination(n).to_a }.each { |idxs|
+			dec_attrs = rel.attributes.values_at(*idxs).map { |a| a.name }
+			print 'Decision attributes: '
+			p dec_attrs
     
-    # Print values and number of occurrences for each value
-    value_dist = get_value_distribution(rel, indexes)
-    value_dist.each { |value, count|
-        print '\tValue: '
-        print value
-        print '\tOccurrences: '
-        puts count
-    }
+			# Print values and number of occurrences for each value
+			value_dist = get_value_distribution(rel, idxs)
+			value_dist.each { |value, count|
+					print "\tValue: "
+					print value
+					print "\tOccurrences: "
+					puts count
+			}
+		}
 end
 
 # Print generated rules, compactly.
