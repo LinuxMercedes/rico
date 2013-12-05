@@ -13,9 +13,8 @@ def generate_rules(rel, cov, decision_attrs, prune = false, min_coverage = 0)
 	# possible combination of values
 	get_value_distribution(rel, cov + decision_attrs).each { |vals, coverage|
 		# Build consequents hash
-		consequents = Hash.new
-		(cov.length...decision_attrs.length + cov.length).zip(dec_names).each { |n, name|
-			consequents[name] = vals[n]
+		consequents = (cov.length...decision_attrs.length + cov.length).zip(dec_names).map { |n, name|
+			[name, vals[n]]
 		}
 
 		# Building antecedents hash
