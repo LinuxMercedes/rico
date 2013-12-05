@@ -4,6 +4,7 @@ require_relative 'partition.rb'
 # and the decision attributes, optionally pruning unnecessary
 # conditions from the rules.
 def generate_rules(rel, cov, decision_attrs, prune = false, min_coverage = 0)
+    
 	# Get names for the decision attributes
 	dec_names = rel.attributes.values_at(*decision_attrs).map { |attr| attr.name }
 
@@ -48,6 +49,7 @@ end
 # removing any result in the same set of decision attributes.
 # Guaranteed to produce a minimal condition list.
 def _prune_antecedents(rel, cov, decision_attrs, vals)
+    
 	consequents_vals = [vals[cov.length, cov.length + decision_attrs.length]]
 
 	# Check each possible combination of the covering attributes
@@ -69,6 +71,7 @@ end
 # <key = attribute value(s), value = # of occurences in relation>
 # using the specified relation and attribute indexes
 def get_value_distribution(rel, indexes)
+    
     value_dist = Hash.new(0)
     instances = rel.instances
     instances.each { |instance|
@@ -77,10 +80,30 @@ def get_value_distribution(rel, indexes)
     return value_dist
 end
 
+# Prints the information for the decision attributes corresponding
+# to the specified attribute indexes
+def print_decision_attr_info(rel, indexes)
+    
+    # Print specified decision attributes
+    dec_attrs = rel.attributes.values_at(*indexes)
+    print 'Decision attributes: '
+    p dec_attrs
+    
+    # Print values and number of occurrences for each value
+    value_dist = get_value_distribution(rel, indexes)
+    value_dist.each { |value, count|
+        print '\tValue: '
+        print value
+        print '\tOccurrences: '
+        puts count
+    }
+end
+
 # Print generated rules, compactly.
 def print_compact_rules(rules)
+    
     rules_array = Array.new
-   
+    
     # Iterate over all rules in the specified rules set
     rules.each { |rule, coverage|
         rule_tuple = Array.new
@@ -88,19 +111,19 @@ def print_compact_rules(rules)
         # Get the values of antecedents/consequents for current rule
         rule_values = Array.new
         rule[:antecedents].each { |name, value|
-            rule_values.push(value)
+            rule_values << value
         }
         rule[:consequents].each { |name, value|
-            rule_values.push(value)
+            rule_values << value
         }
         
         # Combine values of antecedents/consequents with coverage
         # for current rule
-        rule_tuple.push(rule_values)
-        rule_tuple.push(coverage)
+        rule_tuple << rule_values
+        rule_tuple << coverage
         
         # Add current rule tuple to rules array
-        rules_array.push(rule_tuple)
+        rules_array << rule_tuple
     }
     
     # Print compact rules
@@ -108,7 +131,8 @@ def print_compact_rules(rules)
 end
 
 # Print generated rules, prettily.
-def print_rules(rules)
+def print_rules(rules, covering)
+    
 	rules.each { |rule, coverage|
 		print 'If '
 		rule[:antecedents].each { |name, value|

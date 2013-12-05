@@ -4,6 +4,7 @@ require_relative 'rarff-patch.rb'
 # Given a set of [antecedent_attr, value] pairings, 
 # return the possible values for the consequents
 def get_consequents_values(rel, antecedents, consequents)
+    
 	return rel.instances.map { |instance|
 		instance.values_at(*consequents) if antecedents.inject(true) { |match, (idx, val)|
 			match &= instance[idx] == val
@@ -28,7 +29,7 @@ def get_possible_values(rel, indexes = nil)
 	# iterate over all instances and populate values array
 	# with the instance values for the chosen attributes
 	instances.each { |instance|
-		values.push(instance.values_at(*indexes))
+		values << instance.values_at(*indexes)
 	}
 
 	# uniquify the values list
@@ -53,7 +54,7 @@ def get_partition(rel, indexes = nil)
 	# iterate over all possible values and get
 	# the instances that satisfy those values
 	values.each { |value|
-		partition.push(instances.select{ |x| x.values_at(*indexes) == value})
+		partition << instances.select{ |x| x.values_at(*indexes) == value }
 	}
 
 	return partition

@@ -1,6 +1,7 @@
 require 'getoptlong'
 
 def getopts()
+    
 	opts = GetoptLong.new(
 		['--help', '-h', GetoptLong::NO_ARGUMENT],
 		['--prune', '-p', GetoptLong::OPTIONAL_ARGUMENT],
@@ -117,6 +118,7 @@ you will be prompted to choose them interactively.
 end
 
 def select_attributes(rel, choices)
+    
 	attrs = rel.attributes
 	done = false
 	
