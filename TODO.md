@@ -16,8 +16,8 @@
 - [ ] Print distribution of values for decision attributes
 - [x] Calculate all coverings, not just one
 - [ ] Print rules in a compact fashion
-- [ ] Print coverage of each rule
-- [ ] Consolidate rules after removing redundant conditions
+- [x] Print coverage of each rule
+- [x] Consolidate rules after removing redundant conditions
 - [ ] Test with large matrix and additional datasets
 - [ ] Sort rule conditions by order of appearance?
 - [ ] DOCUMENT

@@ -7,7 +7,7 @@ def generate_rules(rel, cov, decision_attrs, prune = false)
 	# Get names for the decision attributes
 	dec_names = rel.attributes.values_at(*decision_attrs).map { |attr| attr.name }
 
-	rules = Array.new
+	rules = Hash.new (0)
 
 	# Build a list of antecedents and consequents for each
 	# possible combination of values
@@ -33,7 +33,7 @@ def generate_rules(rel, cov, decision_attrs, prune = false)
 			antecedents[rel.attributes[n].name] = val
 		}
 
-		rules.push({:antecedents => antecedents, :consequents => consequents, :coverage => coverage})
+		rules[{:antecedents => antecedents, :consequents => consequents}] += coverage
 	}
 
 	return rules
@@ -67,7 +67,7 @@ end
 
 # Print generated rules, prettily.
 def print_rules(rules)
-	rules.each { |rule|
+	rules.each { |rule, coverage|
 		print 'If '
 		rule[:antecedents].each{ |name, value|
 			print name
@@ -86,7 +86,7 @@ def print_rules(rules)
 
 		print "\b\b. ("
 
-		print rule[:coverage]
+		print coverage
 		puts ')'
 	}
 end
