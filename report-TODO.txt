@@ -11,7 +11,7 @@ Small dataset (small enough to verify by hand)
 
 Big dataset
 [x]Single decision attribute
-[ ]Multiple decision attributes
+[x]Multiple decision attributes
 [x]Pruning conditions
 [x]Not pruning conditions
 [x]Limiting # of attrs in covering
