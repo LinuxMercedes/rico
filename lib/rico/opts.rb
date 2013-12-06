@@ -21,7 +21,7 @@ def getopts()
 		case opt
 		when '--help'
 			puts <<-EOF
-rico [OPTION] [DATASET]
+rico [DATASET] [OPTION]
 
 -h, --help:
 	Show this message
@@ -32,8 +32,11 @@ rico [OPTION] [DATASET]
 -c, --covering [attr_name, attr_name, ...]:
 	Specify names of attributes to use in coverings
 
--m, --max-attrs x:
+-a, --max-attrs x:
 	Maximum number of attributes to have in a covering
+
+-r, --min-rule-coverage x:
+	Minimum coverage a rule must have to be reported
 
 -p, --prune:
 	Prune unnecessary conditions from generated rules
