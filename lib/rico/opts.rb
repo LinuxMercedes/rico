@@ -44,7 +44,6 @@ you will be prompted to choose them interactively.
 		exit
 
 		when '--prune'
-			p arg.downcase
 			if arg.downcase.chomp == "n"
 				prune = false
 			else
@@ -100,12 +99,12 @@ you will be prompted to choose them interactively.
 
 	if max_attrs.nil?
 		puts "Maximum attributes to consider in a covering (0 = unlimited): "
-		max_attrs = $stdin.gets.chomp!.to_i
+		max_attrs = $stdin.gets.chomp!.to_i || 0
 	end
 
 	if min_coverage.nil?
-		puts "Minimum instance coverage for reported rules (0 = unlimited): "
-		min_coverage = $stdin.gets.chomp!.to_i
+		puts "Minimum instance coverage for reported rules (0 = no minimum): "
+		min_coverage = $stdin.gets.chomp!.to_i || 0
 	end
 
 	if prune.nil?
