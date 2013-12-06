@@ -2,6 +2,7 @@ require 'rubygems'
 require 'backports/1.9.1/kernel/require_relative'
 require 'backports/1.9.1/enumerable/each_with_object'
 require 'backports/1.9.2/enumerable/flat_map'
+require 'backports/1.9.2/hash/keep_if'
 
 require_relative 'rico/partition.rb'
 require_relative 'rico/covering.rb'
