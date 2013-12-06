@@ -44,7 +44,6 @@ you will be prompted to choose them interactively.
 		exit
 
 		when '--prune'
-			p arg.downcase
 			if arg.downcase.chomp == "n"
 				prune = false
 			else
