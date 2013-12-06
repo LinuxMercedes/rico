@@ -1,0 +1,6 @@
+#! /bin/bash
+
+gem query --installed --name-matches backports 2>&1 >/dev/null || gem install --user-install backports
+gem query --installed --name-matches rarff 2>&1 >/dev/null || gem install --user-install rarff
+
+ruby lib/rico.rb "$@"
