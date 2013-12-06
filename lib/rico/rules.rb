@@ -13,6 +13,8 @@ def generate_rules(rel, cov, decision_attrs, prune = false, min_coverage = 0)
 	# Build a list of antecedents and consequents for each
 	# possible combination of values
 	get_value_distribution(rel, cov + decision_attrs).each { |vals, coverage|
+		# if we already have a rule to categorize this instance,
+		# add this instance's coverage to that rule.
 		next if rules.any? { |rule|
 			if evaluate(rule, vals)
 				rule[:coverage] += coverage
@@ -81,6 +83,8 @@ def _prune_antecedents(rel, cov, decision_attrs, vals)
 	}
 end
 
+# Evaluate a rule
+# pretty self-explanatory
 def evaluate(rule, instance)
 	return instance.zip(rule[:antecedents] + rule[:consequents]).all? { |v, r|
 		r.last == '_' || v == r.last
