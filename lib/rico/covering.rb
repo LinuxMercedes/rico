@@ -48,13 +48,17 @@ def find_covering(rel, decision, indexes, max_attrs = 0)
 
 	# Generate all possible attribute combinations,
 	# starting with combos of size 1
-	attr_combos = (1..max_attrs).flat_map { |n| indexes.combination(n).to_a }
+	#attr_combos = (1..max_attrs).flat_map { |n| indexes.combination(n).to_a }
 
 	# Generate a list of valid partitions
 	coverings = Array.new
-	attr_combos.each { |idxs|
-		partition = get_partition(rel, idxs)
-		coverings << idxs if is_less_than(partition, dec_partition) and not is_in(idxs, coverings)
+
+	(1..max_attrs).each { |n| 
+		indexes.combination(n).each { |idxs|
+		#attr_combos.each { |idxs|
+			partition = get_partition(rel, idxs)
+			coverings << idxs if is_less_than(partition, dec_partition) and not is_in(idxs, coverings)
+		}
 	}
 
 	return coverings
