@@ -1,0 +1,20 @@
+Test Cases:
+
+Small dataset (small enough to verify by hand)
+[x]Single decision attribute
+[x]Multiple decision attributes
+[x]Pruning conditions
+[x]Not pruning conditions
+[x]Not limiting # of attrs in covering
+[x]No min rule coverage
+
+
+Big dataset
+[x]Single decision attribute
+[ ]Multiple decision attributes
+[x]Pruning conditions
+[x]Not pruning conditions
+[x]Limiting # of attrs in covering
+[x]Minimum rule coverage
+[x]No min rule coverage
+[x]Datasets where pruned rules would result in combining rules
