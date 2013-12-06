@@ -1,6 +1,0 @@
-minimal()
-
-isLessThan(Partition p)
-
-getCovering(Partition p)
-
